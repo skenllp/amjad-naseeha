@@ -118,4 +118,78 @@
     title.textContent = 'Thank You for Your Wishes';
     desc.textContent = 'Your blessing is ready to share on WhatsApp.';
   });
+
+  // ---- Background Music (Autoplay & Loop) ----
+  var audio = document.getElementById('bg-music');
+  var musicBtn = document.getElementById('music-toggle');
+
+  if (audio && musicBtn) {
+    function updateBtnState(playing) {
+      if (playing) {
+        musicBtn.classList.add('playing');
+        musicBtn.setAttribute('aria-label', 'Pause background music');
+        musicBtn.setAttribute('title', 'Pause background music');
+      } else {
+        musicBtn.classList.remove('playing');
+        musicBtn.setAttribute('aria-label', 'Play background music');
+        musicBtn.setAttribute('title', 'Play background music');
+      }
+    }
+
+    function playAudio() {
+      var promise = audio.play();
+      if (promise !== undefined) {
+        promise.then(function () {
+          updateBtnState(true);
+          cleanupAutoplayListeners();
+        }).catch(function () {
+          // Autoplay was blocked by browser policy; wait for first interaction
+          updateBtnState(false);
+        });
+      }
+    }
+
+    var interactionEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll'];
+    function onFirstInteraction() {
+      if (audio.paused) {
+        playAudio();
+      }
+      cleanupAutoplayListeners();
+    }
+
+    function cleanupAutoplayListeners() {
+      interactionEvents.forEach(function (event) {
+        window.removeEventListener(event, onFirstInteraction, { capture: true });
+        document.removeEventListener(event, onFirstInteraction, { capture: true });
+      });
+    }
+
+    // Try playing immediately on open
+    playAudio();
+
+    // If browser policy blocks autoplay without gesture, trigger on first tap/scroll anywhere
+    interactionEvents.forEach(function (event) {
+      window.addEventListener(event, onFirstInteraction, { capture: true, once: true });
+      document.addEventListener(event, onFirstInteraction, { capture: true, once: true });
+    });
+
+    // Toggle button handler
+    musicBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (audio.paused) {
+        audio.play().then(function () {
+          updateBtnState(true);
+        }).catch(function (err) {
+          console.error('Audio play error:', err);
+        });
+      } else {
+        audio.pause();
+        updateBtnState(false);
+      }
+    });
+
+    audio.addEventListener('play', function () { updateBtnState(true); });
+    audio.addEventListener('pause', function () { updateBtnState(false); });
+  }
 })();
+

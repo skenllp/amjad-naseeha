@@ -25,10 +25,21 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Pinyon+Script&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<audio id="bg-music" src="bismillah.mp3" preload="auto" loop playsinline></audio>
+
+<button type="button" class="music-toggle" id="music-toggle" aria-label="Toggle background music" title="Toggle background music">
+  <span class="music-icon-playing" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+  </span>
+  <span class="music-icon-paused" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+  </span>
+</button>
+
 <main class="paper-bg">
   <h1 class="sr-only">Amjad Sha &amp; Naseeha Noushad — Wedding Invitation</h1>
   <div class="petals" id="petals" aria-hidden="true"></div>
@@ -94,7 +105,11 @@
       <p>WE SEEK YOUR DUAS AND WARMLY<br>INVITE YOU TO CELEBRATE THIS<br>SPECIAL OCCASION WITH US.</p>
     </div>
 
-    <div class="fade-up dua" style="animation-delay:3150ms"><img src="assets/dua.png" alt="Barakallahu lakuma wa baraka alaikuma wa jama'a bainakuma fee khair"></div>
+    <div class="fade-up dua" style="animation-delay:3150ms">
+      <p class="dua-arabic" dir="rtl" lang="ar">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ</p>
+      <p class="dua-translation">&ldquo;And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy. Indeed in that are signs for a people who give thought.&rdquo;</p>
+      <span class="dua-surah">Surah Ar-Rum &middot; 30:21</span>
+    </div>
 
     <section class="envelope" id="envelope" aria-label="Save the date keepsake">
       <div class="envelope-scene">
